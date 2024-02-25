@@ -2,16 +2,17 @@ import torch
 import streamlit as st
 from src.model.model import load_tokenizer_and_model, get_text
 
+
 def client():
     # определяем на чем будем запускать модель
     if torch.cuda.is_available():
-        device = torch.device("cuda")
+        torch.device("cuda")
     else:
-        device = torch.device("cpu")
+        torch.device("cpu")
 
-    st.title('Краткий пересказ текстов')
+    st.title("Краткий пересказ текстов")
     # получаем текст от клиента
-    text = st.text_area('Введите текст')
+    text = st.text_area("Введите текст")
 
     # загружаем модель и токенизатор. Кешируем в Streamlit
     @st.cache_resource()
@@ -21,8 +22,8 @@ def client():
 
     tokenizer, model = load_model()
 
-    st.write('Краткий пересказ')
+    st.write("Краткий пересказ")
 
-    if st.button('Применить'):
+    if st.button("Применить"):
         # вывод решения на экран
         st.success(get_text(tokenizer, model, text))
