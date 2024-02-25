@@ -29,7 +29,7 @@ def test_success():
 
 
 def test_success_value():
-    # Если в st.text_area есть значение, 
+    # Если в st.text_area есть значение,
     # то на выходе в st.success будет значение не равно null
     if len(at.text_area) > 0:
         at.text_area[0].input('Тестовый текст')
