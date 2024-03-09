@@ -20,7 +20,7 @@ def load_tokenizer_and_model():
     return (tokenizer, model)
 
 
-def get_text(tokenizer, model, text):
+def make_summary_text(tokenizer, model, text):
     """Функция суммаризации текста.
 
     Parameters
@@ -34,7 +34,7 @@ def get_text(tokenizer, model, text):
 
     Returns
     -------
-    summary : str
+     : str
         Суммаризированный текст.
     """
 

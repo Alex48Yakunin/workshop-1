@@ -1,4 +1,4 @@
-from src.ui.client import client
+from src.ui.client import launch_app
 
 # пуск клиента приложения
-client()
+launch_app()

@@ -1,4 +1,4 @@
-from src.model.model import load_tokenizer_and_model, get_text
+from src.model.model import load_tokenizer_and_model,  make_summary_text
 
 tokenizer, model = load_tokenizer_and_model()
 
@@ -161,9 +161,9 @@ def test_load_tokenizer_and_model():
 
 
 def test_get_text():
-    summary = get_text(tokenizer, model, text)
+    summary =  make_summary_text(tokenizer, model, text)
     assert isinstance(summary, str)
     # Данный текст длиннее чем может обработать модель.
     # Проверка работы токенизатора урезания текста (truncation)
-    summary_2 = get_text(tokenizer, model, text_2)
+    summary_2 =  make_summary_text(tokenizer, model, text_2)
     assert isinstance(summary_2, str)
