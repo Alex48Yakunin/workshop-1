@@ -1,9 +1,9 @@
 import torch
 import streamlit as st
-from src.model.model import load_tokenizer_and_model, get_text
+from src.model.model import load_tokenizer_and_model,  make_summary_text
 
 
-def client():
+def launch_app():
     # определяем на чем будем запускать модель
     if torch.cuda.is_available():
         torch.device("cuda")
@@ -26,4 +26,4 @@ def client():
 
     if st.button("Применить"):
         # вывод решения на экран
-        st.success(get_text(tokenizer, model, text))
+        st.success(make_summary_text(tokenizer, model, text))
