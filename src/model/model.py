@@ -1,23 +1,30 @@
 from transformers import MBartTokenizer, MBartForConditionalGeneration
 
+model_name = "IlyaGusev/mbart_ru_sum_gazeta"
 
-def load_tokenizer_and_model():
-    """Загрузка предобученной модели для суммаризации текста.
-    Модель обучена на массиве статей с сайта gazeta.ru.
-    Модель может неадекватно обрабатывать некоторые виды входящего текста.
 
+def load_tokenizer():
+    """
     Returns
     -------
     tokenizer : MBartTokenizer
         Токенизатор
+    """
+    tokenizer = MBartTokenizer.from_pretrained(model_name)
+    return (tokenizer)
+
+
+def load_bart_model():
+    """Загрузка предобученной модели для суммаризации текста.
+    Модель обучена на массиве статей с сайта gazeta.ru.
+    Модель может неадекватно обрабатывать некоторые виды входящего текста.
+    Returns
+    -------
     model : MBartForConditionalGeneration
         Модель
     """
-
-    model_name = "IlyaGusev/mbart_ru_sum_gazeta"
-    tokenizer = MBartTokenizer.from_pretrained(model_name)
     model = MBartForConditionalGeneration.from_pretrained(model_name)
-    return (tokenizer, model)
+    return (model)
 
 
 def make_summary_text(tokenizer, model, text):
@@ -54,9 +61,9 @@ def make_summary_text(tokenizer, model, text):
     _min_length = int(
         input_length * 0.1
     )  # Минимальное количество токенов установлено как 10% от input_length
-    min_length = (
-        _min_length if _min_length <= 200 else 200
-    )  # Должно быть меньше или равно 200.
+
+    # Должно быть меньше или равно 200.
+    min_length = (_min_length if _min_length <= 200 else 200)
 
     model_outputs = model.generate(
         input_ids=input_ids,  # Векторизированный текст передаётся модели
@@ -65,7 +72,6 @@ def make_summary_text(tokenizer, model, text):
     )
     output_ids = model_outputs[0]  # Вектор исходящего текcта.
 
-    summary = tokenizer.decode(
-        output_ids, skip_special_tokens=True
-    )  # Декодирование - превращение вектора в текст.
+    # Декодирование - превращение вектора в текст.
+    summary = tokenizer.decode(output_ids, skip_special_tokens=True)
     return summary

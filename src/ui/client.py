@@ -1,6 +1,6 @@
 import torch
 import streamlit as st
-from src.model.model import load_tokenizer_and_model,  make_summary_text
+from src.model.model import load_tokenizer, load_bart_model,  make_summary_text
 
 
 def launch_app():
@@ -17,7 +17,8 @@ def launch_app():
     # загружаем модель и токенизатор. Кешируем в Streamlit
     @st.cache_resource()
     def load_model():
-        tokenizer, model = load_tokenizer_and_model()
+        tokenizer = load_tokenizer()
+        model = load_bart_model()
         return (tokenizer, model)
 
     tokenizer, model = load_model()
