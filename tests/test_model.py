@@ -1,6 +1,7 @@
-from src.model.model import load_tokenizer_and_model,  make_summary_text
+from src.model.model import load_tokenizer, load_bart_model,  make_summary_text
 
-tokenizer, model = load_tokenizer_and_model()
+tokenizer = load_tokenizer()
+model = load_bart_model()
 
 text = """
 Актуальность проблемы. Электронная информация играет все большую роль во всех
@@ -155,15 +156,18 @@ text_2 = """
 """
 
 
-def test_load_tokenizer_and_model():
+def test_load_tokenizer():
     assert tokenizer is not None
+
+
+def load_bart_model():
     assert model is not None
 
 
 def test_get_text():
-    summary =  make_summary_text(tokenizer, model, text)
+    summary = make_summary_text(tokenizer, model, text)
     assert isinstance(summary, str)
     # Данный текст длиннее чем может обработать модель.
     # Проверка работы токенизатора урезания текста (truncation)
-    summary_2 =  make_summary_text(tokenizer, model, text_2)
+    summary_2 = make_summary_text(tokenizer, model, text_2)
     assert isinstance(summary_2, str)
